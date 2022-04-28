@@ -16,6 +16,28 @@ function lerDiretorio(caminho) {
   });
 }
 
+function lerArquivos(caminhos) {
+  return Promise.all(caminhos.map((caminho) => lerArquivo(caminho)));
+}
+
+function lerArquivo(caminho) {
+  return new Promise((resolve, reject) => {
+    try {
+      const conteudo = fs.readFileSync(caminho, { encoding: 'utf-8' });
+      resolve(conteudo.toString());
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+function elementosTerminadosCom(array, padrao) {
+  return array.filter((elemento) => elemento.endsWith(padrao));
+}
+
 module.exports = {
   lerDiretorio,
+  lerArquivo,
+  lerArquivos,
+  elementosTerminadosCom,
 };
