@@ -78,6 +78,20 @@ function separarTextoPor(simbolo) {
   };
 }
 
+function agruparElementos(palavras) {
+  return Object.values(
+    palavras.reduce((palavrasAgrupadas, palavra) => {
+      const elemento = palavra.toLowerCase();
+      const quantidade = palavrasAgrupadas[elemento]
+        ? palavrasAgrupadas[elemento].quantidade + 1
+        : 1;
+      palavrasAgrupadas[elemento] = { elemento, quantidade };
+
+      return palavrasAgrupadas;
+    }, {})
+  );
+}
+
 module.exports = {
   lerDiretorio,
   elementosTerminadosCom,
@@ -89,4 +103,5 @@ module.exports = {
   removerSimbolos,
   mesclarElementos,
   separarTextoPor,
+  agruparElementos,
 };

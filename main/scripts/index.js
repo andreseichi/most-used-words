@@ -33,5 +33,7 @@ fn.lerDiretorio(caminho)
   .then(fn.mesclarElementos)
   .then(fn.separarTextoPor(' '))
   .then(fn.removerElementosSeVazio)
+  .then(fn.removerElementosSeApenasNumero)
+  .then(fn.agruparElementos)
 
   .then(console.log);
