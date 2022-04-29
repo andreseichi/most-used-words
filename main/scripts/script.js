@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { join } = require('path');
 const path = require('path');
 
 function lerDiretorio(caminho) {
@@ -58,12 +57,9 @@ function removerElementosSeApenasNumero(array) {
 function removerSimbolos(simbolos) {
   return function (array) {
     return array.map((elemento) => {
-      let textoSemSimbolos = elemento;
-      simbolos.forEach((simbolo) => {
-        textoSemSimbolos = textoSemSimbolos.split(simbolo).join('');
-      });
-
-      return textoSemSimbolos;
+      return simbolos.reduce((acumulador, simbolo) => {
+        return acumulador.split(simbolo).join('');
+      }, elemento);
     });
   };
 }
@@ -92,6 +88,17 @@ function agruparElementos(palavras) {
   );
 }
 
+function ordernarPorAtributoNumerico(atributo, ordem = 'ascendente') {
+  return function (array) {
+    const descendente = (objeto1, objeto2) =>
+      objeto2[atributo] - objeto1[atributo];
+    const ascendente = (objeto1, objeto2) =>
+      objeto1[atributo] - objeto2[atributo];
+
+    return array.sort(ordem === 'ascendente' ? ascendente : descendente);
+  };
+}
+
 module.exports = {
   lerDiretorio,
   elementosTerminadosCom,
@@ -104,4 +111,5 @@ module.exports = {
   mesclarElementos,
   separarTextoPor,
   agruparElementos,
+  ordernarPorAtributoNumerico,
 };
